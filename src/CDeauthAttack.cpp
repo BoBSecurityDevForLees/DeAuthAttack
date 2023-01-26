@@ -5,11 +5,10 @@ CDeauthenticationAttack::CDeauthenticationAttack(char* strApMac)
     this->deauthentication = new C80211Deauthentication(strApMac);
     int radioHeaderSize = radioHeader.getDeauthenticationPacketSize();
     int deauthPacketSize = this->deauthentication->getDeauthenticationPacketSize();
-    int packetSize = radioHeaderSize + deauthPacketSize;
+    this->packetSize = radioHeaderSize + deauthPacketSize;
 
-    this->packet = new char[packetSize];
+    this->packet = new char[this->packetSize];
     this->radioHeader.getDeauthenticationPacket(&this->packet[0]);
-    this->deauthentication->getDeauthenticationPacket(&this->packet[radioHeaderSize]);
 }
 
 CDeauthenticationAttack::CDeauthenticationAttack(char* strApMac, char* strStationMac)
@@ -17,12 +16,10 @@ CDeauthenticationAttack::CDeauthenticationAttack(char* strApMac, char* strStatio
     this->deauthentication = new C80211Deauthentication(strApMac, strStationMac);
     int radioHeaderSize = radioHeader.getDeauthenticationPacketSize();
     int deauthPacketSize = this->deauthentication->getDeauthenticationPacketSize();
-    int packetSize = radioHeaderSize + deauthPacketSize;
+    this->packetSize = radioHeaderSize + deauthPacketSize;
 
-    this->packet = new char[packetSize];
+    this->packet = new char[this->packetSize];
     this->radioHeader.getDeauthenticationPacket(&this->packet[0]);
-    this->deauthentication->getDeauthenticationPacket(&this->packet[radioHeaderSize]);
-}
 }
 
 CDeauthenticationAttack::~CDeauthenticationAttack()
@@ -33,5 +30,13 @@ CDeauthenticationAttack::~CDeauthenticationAttack()
 
 u_char* CDeauthenticationAttack::getDeauthenticationPacket()
 {
+    int radioHeaderSize = radioHeader.getDeauthenticationPacketSize();
+    this->deauthentication->getDeauthenticationPacket(&this->packet[radioHeaderSize]);
+
     return (u_char*)this->packet;
+}
+
+int CDeauthenticationAttack::getDeauthenticationPacketSize()
+{
+    return this->packetSize;
 }

@@ -10,6 +10,7 @@ private:
     C80211Deauthentication* deauthentication;
 
     char* packet;
+    int packetSize=0;
 
 public:
     CDeauthenticationAttack(char* strApMac);
@@ -17,4 +18,5 @@ public:
     ~CDeauthenticationAttack();
 
     u_char* getDeauthenticationPacket();
+    int getDeauthenticationPacketSize();
 };
