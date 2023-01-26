@@ -20,7 +20,7 @@ C80211RadioHeader::~C80211RadioHeader()
 
 }
 
-bool C80211RadioHeader::getDeAuthPacket(char* packet)
+bool C80211RadioHeader::getDeauthenticationPacket(char* packet)
 {
     packet[0] = this->it_version;
     packet[1] = this->it_pad;
@@ -31,7 +31,7 @@ bool C80211RadioHeader::getDeAuthPacket(char* packet)
     return true;
 }
 
-int C80211RadioHeader::getDeAuthPacketSize()
+int C80211RadioHeader::getDeauthenticationPacketSize()
 {
     return this->it_len;
 }

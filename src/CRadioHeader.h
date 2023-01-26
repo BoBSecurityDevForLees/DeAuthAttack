@@ -15,9 +15,9 @@ private:
     
 
 public:
-    C80211RadioHeader();                            
-    ~C80211RadioHeader();
+    C80211RadioHeader();            // 생성자
+    ~C80211RadioHeader();           // 소멸자
 
-    bool getDeAuthPacket(char* packet);
-    int getDeAuthPacketSize();
+    bool getDeauthenticationPacket(char* packet);
+    int getDeauthenticationPacketSize();
 };
