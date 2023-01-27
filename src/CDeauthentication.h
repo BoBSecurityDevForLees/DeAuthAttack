@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstring>
+#include "mac.h"
 
 typedef u_char BYTE;
 
@@ -10,17 +11,21 @@ class C80211Deauthentication
 private:
     uint16_t framecontrol;
     uint16_t duration;
-    BYTE byteDestinationAddress[6];
-    BYTE byteSourceAddress[6];
-    BYTE byteBSSID[6];
+    Mac macDestinationAddress;
+    Mac macSourceAddress;
+    Mac macBSSID;
     uint sequenceNum = 0;
-    uint16_t byteFixed;
+    uint16_t byteDeauthFixed;
+    BYTE byteAuthFixed[6];
 
 public:
-    C80211Deauthentication(char* byteBSSID);
-    C80211Deauthentication(char* byteBSSID, char* byteDestination);
+    C80211Deauthentication();
+    C80211Deauthentication(char* strBSSID);
+    C80211Deauthentication(char* strBSSID, char* strDestination);
     ~C80211Deauthentication();
 
     bool getDeauthenticationPacket(char* packet);
+    bool getAuthenticationPacket(char* packet);
     int getDeauthenticationPacketSize();
+    int getAuthenticationPacketSize();
 };
