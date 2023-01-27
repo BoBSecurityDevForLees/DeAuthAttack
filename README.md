@@ -8,7 +8,8 @@
 sudo modprobe mac80211_hwsim [radios=2]
 
 ## Authentication
-wlan.addr == 3E:E0:7B:48:18:F7
+wlan.addr == 3E:E0:7B:48:18:F7  
+AuthPacket은 Deauth에 보임.
 
 ## Deauthentication
 wlan.addr == 72:96:DB:5B:57:81
