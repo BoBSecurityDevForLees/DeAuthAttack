@@ -37,13 +37,13 @@ int main(int argc, char* argv[])
     switch (argc)
     {
     case 3: // BroadCast
-        deauth = new CDeauthenticationAttack(0);
-        deauth->sendPacket(handle, argv[2], NULL, 0);
+        deauth = new CDeauthenticationAttack(BroadDeauth);
+        deauth->sendPacket(handle, argv[2], NULL, BroadDeauth);
         break;
     
     case 4: // Unicast
-        deauth = new CDeauthenticationAttack(1);
-        deauth->sendPacket(handle, argv[2], argv[3], 1);
+        deauth = new CDeauthenticationAttack(UnicastDeauth);
+        deauth->sendPacket(handle, argv[2], argv[3], UnicastDeauth);
         break;
     
     case 5: // Auth
@@ -52,8 +52,8 @@ int main(int argc, char* argv[])
             usage();
             return -1;
         }
-        deauth = new CDeauthenticationAttack(2);
-        deauth->sendPacket(handle, argv[2], argv[3], 2);
+        deauth = new CDeauthenticationAttack(Auth);
+        deauth->sendPacket(handle, argv[2], argv[3], Auth);
         break;
     default:
         usage();

@@ -40,7 +40,7 @@ bool C80211Deauthentication::getDeauthenticationPacket(char* packet)
     memcpy(&packet[22], &sequenceFrame, 2);
     memcpy(&packet[24], &this->byteDeauthFixed, 2);
     
-    this->sequenceNum = (this->sequenceNum +1) % 16777216;
+    this->sequenceNum = (this->sequenceNum +1) % 4096;
     return true;
 }
 
@@ -61,7 +61,7 @@ bool C80211Deauthentication::getAuthenticationPacket(char* packet)
     BYTE byteAuthFixed[6] = { 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 };
     memcpy(&packet[24], &byteAuthFixed, 6);
 
-    this->sequenceNum = (this->sequenceNum +1) % 16777216;
+    this->sequenceNum = (this->sequenceNum +1) % 4096;
     return true;
 }
 

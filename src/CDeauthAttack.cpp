@@ -46,7 +46,7 @@ CDeauthenticationAttack::~CDeauthenticationAttack()
     // 동적할당된 packet free
     if(this->packetlist.size() < 0)
         for(int i = 0; i < packetlist.size(); i++)
-            delete packetlist[i];
+            delete[] packetlist[i];
 }
 
 bool CDeauthenticationAttack::generatePacket(char* strApMac, char* strStationMac, int option)
