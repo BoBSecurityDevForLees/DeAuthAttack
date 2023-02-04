@@ -11,7 +11,7 @@ enum AttackType
     BroadDeauth = 0,
     UnicastDeauth = 1,
     Auth = 2,
-}
+};
 
 class CDeauthenticationAttack
 {
